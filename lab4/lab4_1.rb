@@ -2,7 +2,7 @@ class CashMachine
 
     def initialize(balance = 100)
         @balance = balance
-        File.write('balance.txt','100')
+        File.write('balance.txt', @balance)
     end
 
     def deposit
