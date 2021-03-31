@@ -78,6 +78,60 @@ class PostsController
     end
 end
 
+class CommentsController
+    extend Resource
+
+    def initialize 
+        @comments = []
+    end
+
+    def index
+        ind = 0
+        @comments.each do |item|
+            puts ind.to_s + '. ' + item
+            ind += 1
+        end
+    end
+
+    def show
+        puts 'Print id of comment'
+        id = gets.to_i
+        puts "Comment with such id doesn't exists"
+        puts @comments[id]        
+    end
+
+    def create
+        puts 'Print your comment'
+        text = gets.chomp
+        @comments.push(text)
+        len = @comments.length - 1
+        puts len.to_s + '. ' + @comments[len]
+    end
+
+    def update
+        puts 'Print ID of comment, you want to change'
+        id = gets.to_i
+        if @comments[id] == nil
+            puts "Comment with such id doesn't exists"
+            return
+        end
+        puts 'Print comment'
+        text = gets.to_s
+        @comments[id] = text
+        puts id.to_s + '. ' + @comments[id]
+    end
+
+    def destroy
+        puts 'Print ID of comment, you want to delete'
+        id = gets.to_i
+        if @comments[id] == nil
+            puts "Comment with such id doesn't exists"
+            return
+        end
+        @comments.delete(@comments[id])
+    end
+end
+
 class Router
     def initialize
         @routes = {}
@@ -85,12 +139,14 @@ class Router
 
     def init
         resources(PostsController, 'posts')
+        resources(CommentsController, 'comments')
 
         loop do
             print 'Choose resource you want to interact (1 - Posts, 2 - Comments, q - Exit): '
             choise = gets.chomp
 
             PostsController.connection(@routes['posts']) if choise == '1'
+            CommentsController.connection(@routes['comments']) if choise == '2'
             break if choise == 'q'
         end
 
