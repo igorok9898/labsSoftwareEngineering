@@ -32,23 +32,49 @@ class PostsController
     end
 
     def index
-        puts 'index'
+        ind = 0
+        @posts.each do |item|
+            puts ind.to_s + '. ' + item
+            ind += 1
+        end
     end
 
     def show
-        puts 'show'
+        puts 'Print id of post'
+        id = gets.to_i
+        puts "Post with such id doesn't exists"
+        puts @posts[id]        
     end
 
     def create
-        puts 'create'
+        puts 'Print text of post'
+        text = gets.chomp
+        @posts.push(text)
+        len = @posts.length - 1
+        puts len.to_s + '. ' + @posts[len]
     end
 
     def update
-        puts 'update'
+        puts 'Print ID of post, you want to change'
+        id = gets.to_i
+        if @posts[id] == nil
+            puts "Post with such id doesn't exists"
+            return
+        end
+        puts 'Print new text of post'
+        text = gets.to_s
+        @posts[id] = text
+        puts id.to_s + '. ' + @posts[id]
     end
 
     def destroy
-        puts 'destroy'
+        puts 'Print ID of post, you want to delete'
+        id = gets.to_i
+        if @posts[id] == nil
+            puts "Post with such id doesn't exists"
+            return
+        end
+        @posts.delete(@posts[id])
     end
 end
 
