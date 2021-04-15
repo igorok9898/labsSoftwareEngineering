@@ -34,10 +34,6 @@ def deposit(num)
     end
 end
 
-def quit
-    "Good bye!"
-end
-
 def http
 
     require 'socket'
@@ -59,7 +55,7 @@ def http
                 url == "/deposit"
                 res = "#{res} \n\n #{deposit(num.to_i)}"
             elsif url == "/quit"
-                res = "#{res} \n\n#{quit}"
+                res = "#{res} \n\nGood bye!"
                 client.print res
                 client.close()
                 break
