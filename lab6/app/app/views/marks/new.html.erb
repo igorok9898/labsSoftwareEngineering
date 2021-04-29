@@ -1,0 +1,12 @@
+<%= form_with model: [@report, @report.marks.build], local: true do |form| %>
+  <div align="center">
+    <div>
+      <%= form.label :points %><br>
+     <%= form.text_field :points %>
+    </div>
+
+    <div>
+      <%= form.submit %>
+    </div>
+  </div>
+<% end %>

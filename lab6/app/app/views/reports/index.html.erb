@@ -1,0 +1,29 @@
+<h1 align="center"> Labs reports </h1>
+<%= link_to "Add report", new_report_path %> <br>
+<p> --------------------------------------------------------------------- </p>
+
+<% @reports.each do |report| %>
+  <% flag = false %>
+  <% point = 0 %>
+  <% letter = "" %>
+  <% @marks.each do |mark| %>
+    <% if report.id == mark.report_id %>
+      <% point = mark.points %>
+      <% letter = mark.letter %>
+      <% flag = true %>
+    <% end %>
+  <% end %>
+  <% if flag == false %>
+    <b><%= report.title %> </b> <br>
+    <%= report.description %> <br>
+    <%= link_to "Add mark", new_report_mark_path(report) %>
+    <%= link_to "Remove", report, method: :delete, data: {confirm: "Are you sure"} %> <br>
+    <p> --------------------------------------------------------------------- </p>
+  <% else %>
+    <b><%= report.title %> </b> <br>
+    <%= report.description %> <br>
+    Mark: <%= letter %>(<%= point %>)
+    <%= link_to "Remove", report, method: :delete, data: {confirm: "Are you sure"} %> <br>
+    <p> --------------------------------------------------------------------- </p>
+  <% end %>
+<% end %>
